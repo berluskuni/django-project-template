@@ -19,23 +19,13 @@
 
         <!-- Start Header-->
         <div class="row">
-
+           {% block logo %}{% endblock logo %}
             <!-- Logo -->
-            <div class="col-xs-8">
-                <h1>Сервіс Обліку Студентів</h1>
-            </div>
+
 
             <!-- Groups Selector -->
-            <div class="col-xs-4" id="group-selector">
-                <strong>Група:</strong>
-                <label>
-                    <select>
-                        <option value="">Усі Студенти</option>
-                        <option value="">МтМ - 21, Ганжела Сергій</option>
-                        <option value="">МтМ - 22, Ганжела Андрій</option>
-                    </select>
-                </label>
-            </div>
+            {% block group_select %}{% endblock group_select %}
+
         </div>
         <!-- End Header -->
         <!-- Start SubHeader -->
@@ -62,11 +52,8 @@
         </div>
         <!-- End Main Page Content -->
         <!-- Start Footer -->
-        <div class="row" id="footer">
-            <div class="col-xs-12">
-                &copy; 2016 Сервіс Обліку Студентів
-            </div>
-        </div>
+    {% block footer %}{% endblock footer %}
+
         <!-- End Footer -->
     </div>
     <!-- End Container -->
