@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    <!-- Start Container -->
+<!-- Start Container -->
     <div class="container">
 
         <!-- Start Header-->
@@ -26,13 +26,11 @@
             <!-- Groups Selector -->
             <div class="col-xs-4" id="group-selector">
                 <strong>Група:</strong>
-                <label>
-                    <select>
-                        <option value="">Усі Студунти</option>
-                        <option value="">МтМ - 21, Подоба Віталій(№ 254)</option>
-                        <option value="">МтМ - 22, Корост Андрій(№ 2123)</option>
-                    </select>
-                </label>
+                <select>
+                    <option value="">Усі Групи</option>
+                    <option value="">МтМ - 21</option>
+                    <option value="">МтМ - 22</option>
+                </select>
             </div>
         </div>
         <!-- End Header -->
@@ -40,48 +38,41 @@
         <div class="row" id="sub-header">
             <div class="col-xs-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#">Студенти</a> </li>
+                    <li role="presentation"><a href="#">Студенти</a> </li>
                     <li role="presentation"><a href="#">Відвідування</a> </li>
-                    <li role="presentation"><a href="#">Групи</a> </li>
+                    <li role="presentation"  class="active"><a href="#">Групи</a> </li>
                 </ul>
             </div>
         </div>
         <!-- End SubHeader -->
-        <!-- Start Main Page Content -->
+         <!-- Start Main Page Content -->
         <div class="row" id="content-columns">
             <div class="col-xs-12" id="content-column">
                <!-- Status Message -->
-                <div class="alert alert-warning">Зміни скасовано</div>
-                <h2>База Студентів</h2>
+                <h2>Групи</h2>
 
                 <!-- Add Student Button -->
-                <a class="btn btn-primary" href="#">Додати Студента</a>
+                <a class="btn btn-primary" href="#">Додати Групу</a>
                 <div>
                     <!-- Start Students Listing -->
                     <table class="table table-hover table-striped">
                         <thead>
                           <tr>
                               <th>№</th>
-                              <th>Фото</th>
-                              <th>Прізвище</th>
-                              <th>Ім'я</th>
-                              <th>№ Білету</th>
+                              <th>Назва</th>
+                              <th>Староста</th>
                               <th>Дії</th>
                           </tr>
                         </thead>
                         <tbody>
                             <td>1</td>
-                            <td><img height="30" width="30" class="img-circle"
-                                     src="/home/berluskuni/Virtualenvs/studentsdb/src/studentsdb/static/img/1_Toolster.ru_1.jpg"></td>
-                            <td><a title="Редагувати" href="#">Ганжела</a></td>
-                            <td><a title="Редагувати" href="#">Сергій</a></td>
-                            <td>2123</td>
+                            <td>МтМ-21</td>
+                            <td><a title="Редагувати" href="#">Ганжела Сергій</a></td>
                             <td>
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Дія
                                     <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Відвідування</a></li>
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#"?>Редагувіти</a> </li>
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Видалити</a> </li>
                                     </ul>
@@ -91,21 +82,15 @@
                     </table>
                     <nav>
                         <ul class="pagination">
-                            <li><a href="#">&laquo;</a> </li>
                             <li><a href="#">1</a> </li>
                             <li class="active"><a href="#">2</a> </li>
-                            <li><a href="#">3</a> </li>
-                            <li><a href="#">4</a> </li>
-                            <li><a href="#">5</a> </li>
-                            <li><a href="#">&raquo;</a> </li>
-
+                            <li><a href="#">Далі</a> </li>
                         </ul>
                     </nav>
                     <!-- End Students Listing-->
                 </div>
             </div>
         </div>
-        <!-- End Main Page Content -->
         <!-- Start Footer -->
         <div class="row" id="footer">
             <div class="col-xs-12">
@@ -114,11 +99,5 @@
         </div>
         <!-- End Footer -->
     </div>
-    <!-- End Container -->
-
-
-<!-- Javascript section -->
-
-
 </body>
 </html>
