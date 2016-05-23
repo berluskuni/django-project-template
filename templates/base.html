@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="uk">
+    <meta charset="UTF-8">
+    <title>Сервіс Обліку Студентів - {% block meta_title %}{% endblock meta_title %}</title>
+    <meta name="description" content="Сістема Обліку Студентів Навчального Закладу">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block extra_css %}{% endblock extra_css %}
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Start Container -->
+    <div class="container">
+
+        <!-- Start Header-->
+        <div class="row">
+
+            <!-- Logo -->
+            <div class="col-xs-8">
+                <h1>Сервіс Обліку Студентів</h1>
+            </div>
+
+            <!-- Groups Selector -->
+            <div class="col-xs-4" id="group-selector">
+                <strong>Група:</strong>
+                <label>
+                    <select>
+                        <option value="">Усі Студенти</option>
+                        <option value="">МтМ - 21, Ганжела Сергій</option>
+                        <option value="">МтМ - 22, Ганжела Андрій</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <!-- End Header -->
+        <!-- Start SubHeader -->
+        <div class="row" id="sub-header">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="{% url 'home' %}">Студенти</a> </li>
+                    <li role="presentation"><a href="/journal">Відвідування</a> </li>
+                    <li role="presentation"><a href="{% url 'groups' %}">Групи</a> </li>
+                </ul>
+            </div>
+        </div>
+        <!-- End SubHeader -->
+        <!-- Start Main Page Content -->
+        <div class="row" id="content-columns">
+            <div class="col-xs-12" id="content-column">
+               <!-- Status Message -->
+            {% comment 'Not used alert so far' %}
+                <div class="alert alert-warning">Зміни скасовано</div>
+            {% endcomment %}
+                <h2>{% block title %}{% endblock title %}</h2>
+                     {% block content %}{% endblock content %}
+            </div>
+        </div>
+        <!-- End Main Page Content -->
+        <!-- Start Footer -->
+        <div class="row" id="footer">
+            <div class="col-xs-12">
+                &copy; 2016 Сервіс Обліку Студентів
+            </div>
+        </div>
+        <!-- End Footer -->
+    </div>
+    <!-- End Container -->
+
+
+<!-- Javascript section -->
+
+{% block extra_js %}{% endblock extra_js %}
+</body>
+</html>
