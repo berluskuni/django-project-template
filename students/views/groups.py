@@ -20,7 +20,12 @@ def groups_list(request):
             'id': 3,
             'name': u'МтМ-23',
             'steward': u'Ганжела Пётр',
-        }
+        },
+        {
+            'id': 4,
+            'name': u'МтМ-24',
+            'steward': u'Шевчук Максим',
+        },
 
     )
     return render(request, 'groups_list.html', {'groups': groups})
