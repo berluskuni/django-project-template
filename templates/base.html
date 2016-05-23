@@ -7,7 +7,7 @@
     <meta name="description" content="Сістема Обліку Студентів Навчального Закладу">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}">
     {% block extra_css %}{% endblock extra_css %}
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
@@ -42,9 +42,9 @@
         <div class="row" id="sub-header">
             <div class="col-xs-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="{% url 'home' %}">Студенти</a> </li>
-                    <li role="presentation"><a href="/journal">Відвідування</a> </li>
-                    <li role="presentation"><a href="{% url 'groups' %}">Групи</a> </li>
+                    <li role="presentation"{% if request.path_info == '/' %} class="active"{% endif %}><a href="{% url 'home' %}">Студенти</a> </li>
+                    <li role="presentation"{% if '/journal' in request.path_info %} class="active"{% endif %}><a href="/journal">Відвідування</a> </li>
+                    <li role="presentation"{% if '/groups' in request.path_info %} class="active"{% endif %}><a href="{% url 'groups' %}">Групи</a> </li>
                 </ul>
             </div>
         </div>
