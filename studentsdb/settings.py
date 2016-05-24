@@ -106,7 +106,6 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
-MEDIA_ROOT = os.path.join(os.path.expanduser('~'),
-                          '/home/berluskuni/Virtualenvs/studentsdb/src/studentsdb/static/media/uploads/')
+MEDIA_ROOT = os.path.join(BASE_DIR, "..", 'media')
 
-MEDIA_URL = '/static/media/uploads/'
+MEDIA_URL = '/media/'

@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from .settings import MEDIA_ROOT, DEBUG
 
 urlpatterns = patterns('',
                        # Examples:
@@ -25,3 +26,10 @@ urlpatterns = patterns('',
                        url(r'^groups/(?P<gid>\d+)/delete/$', 'students.views.groups.groups_delete',
                            name='groups_delete'),
                        ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if DEBUG:
+    # serve files from media folder
+    urlpatterns += patterns("",
+                            url(r'^media/(?P<patch>.*)$', 'django.views.static.serve',
+                                {'document': MEDIA_ROOT}))
