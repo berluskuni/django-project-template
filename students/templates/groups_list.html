@@ -37,9 +37,9 @@
                         <tbody>
                          {% for group in groups %}
                         <tr>
-                            <td>{{ group.id }}</td>
-                            <td>{{ group.name }}</td>
-                            <td><a title="Редагувати" href="#">{{ group.steward }}</a></td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ group.title }}</td>
+                            <td><a title="Редагувати" href="#">{{ group.leader }}</a></td>
                             <td>
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Дія

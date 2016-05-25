@@ -2,32 +2,11 @@
 __author__ = 'berluskuni'
 from django.shortcuts import render
 from django.http import HttpResponse
+from ..models import Group
 
 
 def groups_list(request):
-    groups = (
-        {
-            'id': 1,
-            'name': u'МтМ-21',
-            'steward': u'Ганжела Сергій',
-        },
-        {
-            'id': 2,
-            'name': u'МтМ-22',
-            'steward': u'Ганжела Андрйій',
-        },
-        {
-            'id': 3,
-            'name': u'МтМ-23',
-            'steward': u'Ганжела Пётр',
-        },
-        {
-            'id': 4,
-            'name': u'МтМ-24',
-            'steward': u'Шевчук Максим',
-        },
-
-    )
+    groups = Group.objects.all()
     return render(request, 'groups_list.html', {'groups': groups})
 
 
