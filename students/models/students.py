@@ -20,7 +20,7 @@ class Student(models.Model):
     photo = models.ImageField(blank=True, verbose_name=u"Фото", null=True)
     ticket = models.CharField(max_length=256, blank=False, verbose_name=u"Білет")
     notes = models.TextField(blank=True, verbose_name=u"Додаткові нотатки")
-    students_group = models.ForeignKey("Group", verbose_name=u'Група', blank=True, null=True, on_delete=models.PROTECT)
+    students_group = models.ForeignKey("Group", verbose_name=u'Група', blank=False, null=True, on_delete=models.PROTECT)
 
     def __unicode__(self):
         return u"%s %s" % (self.first_name, self.last_name)

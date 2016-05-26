@@ -99,3 +99,5 @@ STATICFILES_FINDERS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, "..", 'media')
 
 MEDIA_URL = '/media/'
+
+VALID_IMAGE_FORMATS = ('image/bmp', 'image/jpeg', 'image/gif', 'image/png',)

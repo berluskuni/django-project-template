@@ -24,55 +24,70 @@
 
             </div>
 {% endblock group_select %}
+{% block status_message %}
+    {% if errors %}
+    <div class="alert alert-warning" role="alert">
+    Будь-ласка, виправте наступни помилки
+    </div>
+    {% endif %}
+{% endblock status_message %}
 
 {% block content %}
         <!-- Students_add -->
         <form class="form-horizontal" role="form" action="{% url "students_add" %}"
               method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="first_name">Имʼя</label>
+            {% csrf_token %}
+            <div class="form-group {% if errors.first_name %}has-error{% endif %}">
+                <label class="control-label col-sm-2" for="first_name">Имʼя*</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" value="" id="first_name" name="first_name" placeholder="Іван">
+                <input type="text" class="form-control" value="{{ request.POST.first_name }}" id="first_name" name="first_name" placeholder="Іван">
+                    <span class="help-block">{{ errors.first_name }}</span>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {% if middle.name %}has-error{% endif %}">
                 <label class="control-label col-sm-2" for="middle_name">По-батькові</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" value="" id="middle_name" name="middle_name" placeholder="Іванович">
+                <input type="text" class="form-control" value="{{ request.POST.middle_name }}" id="middle_name" name="middle_name" placeholder="Іванович">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="last_name">Прізвище</label>
+            <div class="form-group {% if errors.last_name %}has-error{% endif %}">
+                <label class="control-label col-sm-2" for="last_name">Прізвище*</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" value="" id="last_name" name="last_name" placeholder="Іванов">
+                <input type="text" class="form-control" value="{{ request.POST.last_name }}" id="last_name" name="last_name" placeholder="Іванов">
+                    <span class="help-block">{{ errors.last_name }}</span>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="ticket">Білет</label>
+            <div class="form-group {% if errors.ticket %}has-error{% endif %}">
+                <label class="control-label col-sm-2" for="ticket">Білет*</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" value="" name="ticket" id="ticket">
+                <input type="text" class="form-control" value="{{ request.POST.ticket }}" name="ticket" id="ticket">
+                    <span class="help-block">{{ errors.ticket }}</span>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="birthday">Дата народження</label>
+            <div class="form-group {% if errors.birthday %}has-error{% endif %}">
+                <label class="control-label col-sm-2" for="birthday">Дата народження*</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" value="" id="birthday" name="birthday" placeholder="Напр. 1984-06-17">
+                <input type="text" class="form-control" value="{{ request.POST.birthday }}" id="birthday" name="birthday" placeholder="Напр. 1984-06-17">
+                    <span class="help-block">{{ errors.birthday }}</span>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group ">
                 <label class="control-label col-sm-2" for="photo">Фото</label>
                 <div class="col-sm-4">
                 <input type="file" value="" name="photo" id="photo">
+                     <span class="help-block">{{ errors.photo }}</span>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="student_group">Група</label>
+            <div class="form-group {% if errors.student_group %}has-error{% endif %}">
+                <label class="control-label col-sm-2" for="student_group">Група*</label>
                 <div class="col-sm-4">
                     <label>
                         <select name="student_group" id="student_group">
                             <option value="" class="form-control">Виберіть групу</option>
-                            <option value="1" class="form-control">МтМ - 21</option>
-                            <option value="2" class="form-control">МтМ - 22</option>
+                            {% for group in groups %}
+                            <option value="{{ group.id }}" {% if group.id == request.POST.student_group|add:0 %} selected="1"{% endif %} class="form-control">{{ group.title }}</option>
+                            {% endfor %}
+                        <span class="help-block">{{ errors.student_group }}</span>
                         </select>
                     </label>
                 </div>
@@ -81,14 +96,14 @@
                 <label class="control-label col-sm-2" for="notes">Додаткові Нотатки</label>
                 <div class="col-sm-4">
                     <label>
-                        <textarea cols="50" rows="7" class="form-control" name="notes"></textarea>
+                        <textarea cols="50" rows="7" class="form-control"  name="notes"></textarea>
                     </label>
                 </div>
             </div>
             <div class="add-student">
                 <p id="btn-st">
                 <button class="btn btn-small btn-primary" name="add_button" type="submit">Додати</button>
-                <button class="btn btn-small" name="cancel_button" type="submit">Скасувати</button>
+                <button class="btn btn-small btn-link"  name="cancel_button" type="submit">Скасувати</button>
                 </p>
             </div>
 
