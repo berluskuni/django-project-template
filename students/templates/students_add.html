@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block meta_title %}Додати Студента{% endblock meta_title %}
+
+{% block title %}Додати Студента{% endblock title %}
+{% block logo %}
+      <div class="col-xs-8">
+                <h1>Сервіс Обліку Студентів</h1>
+            </div>
+ {% endblock logo %}
+{% block group_select %}
+    <div class="col-xs-4" id="group-selector">
+                <strong>Група:</strong>
+
+                    <select>
+                        <option value="">Усі Студенти</option>
+                        {% for student in students %}
+                        <option value="">{{ student.first_name }} {{ student.last_name }}</option>
+                        {% endfor %}
+
+                    </select>
+
+            </div>
+{% endblock group_select %}
+
+{% block content %}
+        <!-- Students_add -->
+        <form class="form-horizontal" role="form" action="{% url "students_add" %}"
+              method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="first_name">Имʼя</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" value="" id="first_name" name="first_name" placeholder="Іван">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="middle_name">По-батькові</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" value="" id="middle_name" name="middle_name" placeholder="Іванович">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="last_name">Прізвище</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" value="" id="last_name" name="last_name" placeholder="Іванов">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ticket">Білет</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" value="" name="ticket" id="ticket">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="birthday">Дата народження</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" value="" id="birthday" name="birthday" placeholder="Напр. 1984-06-17">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="photo">Фото</label>
+                <div class="col-sm-4">
+                <input type="file" value="" name="photo" id="photo">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="student_group">Група</label>
+                <div class="col-sm-4">
+                    <label>
+                        <select name="student_group" id="student_group">
+                            <option value="" class="form-control">Виберіть групу</option>
+                            <option value="1" class="form-control">МтМ - 21</option>
+                            <option value="2" class="form-control">МтМ - 22</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="notes">Додаткові Нотатки</label>
+                <div class="col-sm-4">
+                    <label>
+                        <textarea cols="50" rows="7" class="form-control" name="notes"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="add-student">
+                <p id="btn-st">
+                <button class="btn btn-small btn-primary" name="add_button" type="submit">Додати</button>
+                <button class="btn btn-small" name="cancel_button" type="submit">Скасувати</button>
+                </p>
+            </div>
+
+        </form>
+{% endblock content %}

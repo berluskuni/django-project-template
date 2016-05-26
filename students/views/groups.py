@@ -2,11 +2,31 @@
 __author__ = 'berluskuni'
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..models import Group
 
 
 def groups_list(request):
     groups = Group.objects.all()
+    # try to order groups list
+    order_by = request.GET.get('order_by', '')
+    if order_by in ('title',):
+        groups = groups.order_by(order_by)
+        if request.GET.get('reverse', '') == '1':
+            groups = groups.reverse()
+
+    # paginate students
+    paginator = Paginator(groups, 3)
+    page = request.GET.get('page')
+    try:
+        groups = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer? deliver first page.
+        groups = paginator.page(1)
+    except EmptyPage:
+        # If page is out range (e.g. 9999), deliver
+        # last page of results
+        groups = paginator.page(paginator.num_pages)
     return render(request, 'groups_list.html', {'groups': groups})
 
 

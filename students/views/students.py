@@ -12,7 +12,7 @@ def students_list(request):
     if order_by in ('last_name', 'first_name', 'ticket'):
         students = students.order_by(order_by)
         if request.GET.get('reverse', '') == 1:
-            students = students.reversw()
+            students = students.reverse()
 
     # paginate students
     paginator = Paginator(students, 3)
@@ -30,7 +30,7 @@ def students_list(request):
 
 
 def students_add(request):
-    return HttpResponse('<h1>Student add form</h1>')
+    return render(request, 'students_add.html', {})
 
 
 def students_edit(request, sid):
