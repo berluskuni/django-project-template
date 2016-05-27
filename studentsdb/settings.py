@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for studentsdb project.
 
@@ -37,7 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'students',
+    # 'contact_form',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,6 +58,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
         "studentsdb.context_processors.students_proc",
     )
 )
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 PORTAL_URL = 'http://localhost:8000'
 
@@ -66,7 +70,7 @@ from .db import DATABASES
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk'
 
 TIME_ZONE = 'UTC'
 
@@ -101,3 +105,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "..", 'media')
 MEDIA_URL = '/media/'
 
 VALID_IMAGE_FORMATS = ('image/bmp', 'image/jpeg', 'image/gif', 'image/png',)
+
+# для работы формы обратной связи
+ADMIN_EMAIL = 'berluskuni@mail.ru'
+EMAIL_USE_TLS = False
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST_USER = 'berluskuni@mail.ru'
+EMAIL_HOST_PASSWORD = 'ganzhik7897770'
+# end

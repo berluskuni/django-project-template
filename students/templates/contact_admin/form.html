@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Зв'язок із Адміністратором{% endblock meta_title %}
+
+{% block title %}Зв'язок із Адміністратором{% endblock title %}
+{% block logo %}
+      <div class="col-xs-8">
+                <h1>Сервіс Обліку Студентів</h1>
+            </div>
+ {% endblock logo %}
+{% block group_select %}
+    <div class="col-xs-4" id="group-selector">
+                <strong>Група:</strong>
+
+                    <select>
+                        <option value="">Усі Студенти</option>
+                        {% for student in students %}
+                        <option value="">{{ student.first_name }} {{ student.last_name }}</option>
+                        {% endfor %}
+
+                    </select>
+
+            </div>
+{% endblock group_select %}
+{% block status_message %}
+    {% if errors %}
+    <div class="alert alert-warning" role="alert">
+    Будь-ласка, виправте наступни помилки
+    </div>
+    {% endif %}
+    {{ block.super }}
+{% endblock status_message %}
+
+{% block content %}
+   {% crispy form %}
+{% endblock content %}
