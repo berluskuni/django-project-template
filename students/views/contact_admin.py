@@ -1,4 +1,6 @@
 # coding=utf-8
+from django.views.generic.edit import FormView
+
 __author__ = 'berluskuni'
 from django.shortcuts import render
 from django import forms
@@ -9,8 +11,7 @@ from studentsdb.settings import ADMIN_EMAIL
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
-
-
+"""
 def contact_admin(request):
     # check inf form was posted
     if request.method == 'POST':
@@ -33,6 +34,7 @@ def contact_admin(request):
     else:
         form = ContactForm()
     return render(request, 'contact_admin/form.html', {'form': form})
+"""
 
 
 class ContactForm(forms.Form):
@@ -59,5 +61,24 @@ class ContactForm(forms.Form):
     from_email = forms.EmailField(label=u'Ваша Емейл Адреса')
     subject = forms.CharField(label=u'Загаловок листа', max_length=128)
     message = forms.CharField(label=u'Текс повідомлення', max_length=2560, widget=forms.Textarea)
+
+
+class ContactView(FormView):
+    template_name = 'contact_admin/form.html'
+    form_class = ContactForm
+    success_url = '/email-sent/'
+
+    def form_valid(self, form):
+        """
+        This method is called for valid data
+        """
+        subject = form.cleaned_data['subject']
+        message = form.cleaned_data['message']
+        from_email = form.cleaned_data['from_email']
+
+        send_mail(subject, message, from_email, [ADMIN_EMAIL])
+        return super(ContactView, self).form_valid(form)
+
+
 
 
