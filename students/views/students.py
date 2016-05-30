@@ -37,7 +37,7 @@ class StudentUpdateForm(ModelForm):
 
         # add buttons
         self.helper.layout[-1] = FormActions(Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
-                                             Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),)
+                                             Submit('cancel_button', u'Скасувати', css_class='btn btn-link'), )
 
 
 def students_list(request):
@@ -60,7 +60,7 @@ def students_list(request):
         # If page is out range (e.g. 9999), deliver
         # last page of results
         students = paginator.page(paginator.num_pages)
-    return render(request, 'students_list.html', {'students': students})
+    return render(request, 'students/students_list.html', {'students': students})
 
 
 def students_add(request):
@@ -125,26 +125,26 @@ def students_add(request):
                 student.save()
                 # redirect user to student list
                 return HttpResponseRedirect(u'%s?status_message=Студента %s %s успишно додано!' % (reverse('home'),
-                                            data['first_name'], data['last_name']))
+                                            data['first_name'],  data['last_name']))
             else:
                 # render form with errors and previous user input
-                return render(request, 'students_add.html', {'groups': Group.objects.all().order_by('title'),
-                                                             'errors': errors})
+                return render(request, 'students/students_add.html', {'groups': Group.objects.all().order_by('title'),
+                                                                      'errors': errors})
         elif request.POST.get('cancel_button') is not None:
             # redirect to home page on cancel button
             return HttpResponseRedirect(u'%s?status_message=Додавання студента скасовано' % reverse('home'))
     else:
         # initial form render
-        return render(request, 'students_add.html', {'groups': Group.objects.all().order_by('title')})
+        return render(request, 'students/students_add.html', {'groups': Group.objects.all().order_by('title')})
 
 
 class StudentUpdateView(UpdateView):
     model = Student
-    template_name = 'students_edit.html'
+    template_name = 'students/students_edit.html'
     form_class = StudentUpdateForm
 
     def get_success_url(self):
-        return u'%s&status_message=Студента успешно збереженно' % reverse('home')
+        return u'%s?status_message=Студента успешно збереженно' % reverse('home')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
@@ -155,7 +155,7 @@ class StudentUpdateView(UpdateView):
 
 class StudentDeleteView(DeleteView):
     model = Student
-    template_name = 'students_confirm_delete.html'
+    template_name = 'students/students_confirm_delete.html'
 
     def get_success_url(self):
         return u'%s?status_message=Студента успішно видалено!' % reverse('home')

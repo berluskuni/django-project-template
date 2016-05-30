@@ -26,7 +26,9 @@
             </div>
 {% endblock group_select %}
 {% block status_message %}
-    {% if errors %}
+    {% if request.GET.status_message %}
+                <div class="alert alert-warning" role="alert">{{ request.GET.status_message }}</div>
+    {% elif errors %}
     <div class="alert alert-warning" role="alert">
     Будь-ласка, виправте наступни помилки
     </div>
@@ -35,6 +37,7 @@
 {% block content %}
         <!-- Start Groups Listing -->
         {% if groups %}
+            <a class="btn btn-primary" href="{% url 'groups_add' %}">Додати Групу</a>
         <table class="table">
           <thead>
             <tr>
