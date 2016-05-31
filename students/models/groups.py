@@ -3,6 +3,7 @@ __author__ = 'berluskuni'
 from django.db import models
 
 
+
 class Group(models.Model):
     """
     Group Model
