@@ -11,7 +11,8 @@
     {% block extra_css %}{% endblock extra_css %}
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
 </head>
 <body>
     <!-- Start Container -->
@@ -35,7 +36,7 @@
             <div class="col-xs-12">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation"{% if request.path == '/' %} class="active"{% endif %}><a href="{% url 'home' %}">Студенти</a> </li>
-                    <li role="presentation"{% if '/journal' in request.path %} class="active"{% endif %}><a href="/journal">Відвідування</a> </li>
+                    <li role="presentation"{% if '/journal' in request.path %} class="active"{% endif %}><a href="{% url 'journal' %}">Відвідування</a> </li>
                     <li role="presentation"{% if '/groups' in request.path %} class="active"{% endif %}><a href="{% url 'groups' %}">Групи</a> </li>
                     <li role="presentation"{% if '/contact-admin' in request.path %} class="active{% endif %}"><a href="{% url 'contact-admin' %}">Контакт</a></li>
 

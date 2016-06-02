@@ -13,11 +13,13 @@ from crispy_forms.layout import Submit, Layout, Fieldset
 from crispy_forms.bootstrap import FormActions
 from ..models import Student, Group
 from datetime import datetime
+from ..util import get_current_group
 
 
 class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(StudentUpdateForm, self).__init__(*args, **kwargs)
@@ -52,9 +54,13 @@ class StudentUpdateForm(ModelForm):
         )
 
 
-
 def students_list(request):
-    students = Student.objects.all()
+    # check if we need to show only one group of students
+    current_group = get_current_group(request)
+    if current_group:
+        students = Student.objects.filter(students_group=current_group)
+    else:
+        students = Student.objects.all()
     order_by = request.GET.get('order_by', '')
     if order_by in ('last_name', 'first_name', 'ticket'):
         students = students.order_by(order_by)

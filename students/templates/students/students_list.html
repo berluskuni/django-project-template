@@ -17,15 +17,16 @@
 
                     <select>
                         <option value="">Усі Студенти</option>
-                        {% for student in students %}
-                        <option value="">{{ student.first_name }} {{ student.last_name }}</option>
+                        {% for group in GROUPS %}
+                        <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>
+                        {{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}
+                        </option>
                         {% endfor %}
 
                     </select>
 
             </div>
 {% endblock group_select %}
-
 {% block content %}
     <a class="btn btn-primary" href="{% url 'students_add' %}">Додати Студента</a>
      <!-- Start Students Listing -->
@@ -79,7 +80,7 @@
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Дія
                                     <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/journal/{{ student.id }}">Відвідування</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "journal" student.id %}">Відвідування</a></li>
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "students_edit" student.id %}">Редагувіти</a> </li>
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "students_delete" student.id %}">Видалити</a> </li>
                                     </ul>

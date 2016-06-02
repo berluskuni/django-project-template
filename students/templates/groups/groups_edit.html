@@ -3,9 +3,9 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block meta_title %}Редагувати Студента{% endblock meta_title %}
+{% block meta_title %}Редагувати Групу{% endblock meta_title %}
 
-{% block title %}Редагувати Студента{% endblock title %}
+{% block title %}Редагувати Групу{% endblock title %}
 {% block logo %}
       <div class="col-xs-8">
                 <h1>Сервіс Обліку Студентів</h1>
@@ -36,10 +36,3 @@
 {% block content %}
        {% crispy form %}
 {% endblock content %}
-{% block footer %}
-    <div class="row" id="footer">
-            <div class="col-xs-12">
-                &copy; 2016 Сервіс Обліку Студентів
-            </div>
-        </div>
-{% endblock footer %}

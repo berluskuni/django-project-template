@@ -1,7 +1,7 @@
 # coding=utf-8
 __author__ = 'berluskuni'
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import  HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..models import Group
 from django.core.urlresolvers import reverse
@@ -15,6 +15,7 @@ from crispy_forms.bootstrap import FormActions
 class GroupUpdateForm(ModelForm):
     class Meta:
         model = Group
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(GroupUpdateForm, self).__init__(*args, **kwargs)

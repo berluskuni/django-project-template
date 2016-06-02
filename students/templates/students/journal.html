@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block meta_title %}Облік Відвідування{% endblock meta_title %}
+
+{% block title %}Облік Відвідування{% endblock title %}
+
+{% block logo %}
+    <div class="col-xs-8" xmlns="http://www.w3.org/1999/html">
+                <h1>Сервіс Обліку Студентів</h1>
+            </div>
+ {% endblock logo %}
+{% block group_select %}
+    <div class="col-xs-4" id="group-selector">
+                <strong>Група:</strong>
+
+                    <select>
+                        <option value="">Усі Студенти</option>
+                        {% for group in GROUPS %}
+                        <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>
+                        {{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}
+                        </option>
+                        {% endfor %}
+
+                    </select>
+
+            </div>
+{% endblock group_select %}
+
+{% block content %}
+
+    {% if not students %}
+    <div class="alert alert-warning">
+    Поки немає жодного студента в базі. Будь-ласка,
+    <a href="{% url 'students_add' %}">додайте</a> першегою
+    </div>
+    {% else %}
+        <div class="alert alert-warning">
+        Зміні в журнал зберігаються автоматично при кожному клику в клітинці таблиці
+        <span id="ajax-progress-indicator">Йде збереження...</span>
+        </div>
+
+    <p id="journal-nav" class="text-center">
+    <a href="?month={{ prev_month }}" title="Попередній Місяц">&larr;</a>
+
+    <!-- TODO: translate month name -->
+    <strong>{{ month_verbose }} {{ year }}</strong>
+    <a href="?month={{ next_month }}"
+       title="Наступний Місяц">&rarr;</a>
+    </p>
+    <table class="table table-hover table-striped table-bordered" id="students-journal">
+    <thead>
+      <tr class="header">
+          <th class="num">#</th>
+          <th class="name">Студент</th>
+          {% for day in month_header %}
+          <th class="day-header">
+              <!-- TODO: translate day name -->
+              {{ day.verbose }}
+          <br>
+              {{ day.day }}
+          </th>
+          {% endfor %}
+      </tr>
+      </thead>
+    <tbody>
+    {% csrf_token %}
+    {% for student in students %}
+    <tr>
+        <td>
+            {% if is_paginated %}
+            {{ page_obj.start_index|add:forloop.counter|add:"-1" }}
+            {% else %}
+            {{ forloop.counter }}
+            {% endif %}
+        </td>
+         <td>
+            <a title="Редагувати" target="_blank" href="{% url "students_edit" pk=student.id %}">{{ student.fullname }}</a>
+         </td>
+    {% for day in student.days %}
+    <td class="day-box">
+        <input type="checkbox" data-student-id="{{ student.id }}" data-date="{{ day.date }}" data-url="{{ student.update_url }}"
+                value="1"{% if day.present %} checked="checked" {% endif %}>
+    </td>
+    {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+    {% with object_list=students %}
+    {% include 'students/pagination.html' %}
+    {% endwith %}
+{% endblock content %}
+
+{% block footer %}
+    <div class="row" id="footer">
+            <div class="col-xs-12">
+                &copy; 2016 Сервіс Обліку Студентів
+            </div>
+        </div>
+{% endblock footer %}
