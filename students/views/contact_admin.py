@@ -2,14 +2,14 @@
 from django.views.generic.edit import FormView
 
 __author__ = 'berluskuni'
-from django.shortcuts import render
 from django import forms
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from studentsdb.settings import ADMIN_EMAIL
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
 
 """
 def contact_admin(request):
@@ -78,6 +78,10 @@ class ContactView(FormView):
 
         send_mail(subject, message, from_email, [ADMIN_EMAIL])
         return super(ContactView, self).form_valid(form)
+
+    @method_decorator(permission_required('auth.add_user'))
+    def dispatch(self, *args, **kwargs):
+        return super(ContactView, self).dispatch(*args, **kwargs)
 
 
 

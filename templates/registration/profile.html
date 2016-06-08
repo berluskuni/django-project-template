@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block meta_title %}{{ user.get_full_name|default:user.username }}{% endblock meta_title %}
+{% block title %}{{ user.get_full_name|default:user.username }}{% endblock title %}
+
+{% block content %}
+    <table class="table table-striped">
+    {% if user.email %}
+    <tr>
+        <td>Email</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    {% endif %}
+    {% if user.username %}
+    <tr>
+        <td>Имя</td>
+        <td>{{ user.username }}</td>
+    </tr>
+    {% endif %}
+    {% if user.data_joined %}
+    <tr>
+        <td>Дата Регистрации</td>
+        <td>{{ user.date_joined }}</td>
+    </tr>
+    {% endif %}
+    {% if user.stprofile.mobile_phone %}
+    <tr>
+        <td>Мобильный телефон</td>
+        <td>{{ user.stprofile.mobile_phone }}</td>
+    </tr>
+    {% endif %}
+    </table>
+{% endblock content %}

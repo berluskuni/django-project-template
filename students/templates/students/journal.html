@@ -6,27 +6,6 @@
 
 {% block title %}Облік Відвідування{% endblock title %}
 
-{% block logo %}
-    <div class="col-xs-8" xmlns="http://www.w3.org/1999/html">
-                <h1>Сервіс Обліку Студентів</h1>
-            </div>
- {% endblock logo %}
-{% block group_select %}
-    <div class="col-xs-4" id="group-selector">
-                <strong>Група:</strong>
-
-                    <select>
-                        <option value="">Усі Студенти</option>
-                        {% for group in GROUPS %}
-                        <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>
-                        {{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}
-                        </option>
-                        {% endfor %}
-
-                    </select>
-
-            </div>
-{% endblock group_select %}
 
 {% block content %}
 

@@ -1,7 +1,7 @@
 # coding=utf-8
 __author__ = 'berluskuni'
 from django.shortcuts import render
-from django.http import  HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..models import Group
 from django.core.urlresolvers import reverse
@@ -10,6 +10,7 @@ from django.forms import ModelForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
+from ..util import get_current_group
 
 
 class GroupUpdateForm(ModelForm):
@@ -36,14 +37,20 @@ class GroupUpdateForm(ModelForm):
         # add buttons
         self.helper.layout[-1] = FormActions(Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
                                              Submit('cancel_button', u'Скасувати', css_class='btn btn-link'), )
+
+
 def groups_list(request):
-    groups = Group.objects.all()
-    # try to order groups list
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('title',):
-        groups = groups.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            groups = groups.reverse()
+    current_group = get_current_group(request)
+    if current_group:
+        groups = Group.objects.filter(title=current_group.title)
+    else:
+        groups = Group.objects.all()
+        # try to order groups list
+        order_by = request.GET.get('order_by', '')
+        if order_by in ('title', 'leader'):
+            groups = groups.order_by(order_by)
+            if request.GET.get('reverse', '') == '1':
+                groups = groups.reverse()
 
     # paginate students
     paginator = Paginator(groups, 3)
@@ -57,7 +64,7 @@ def groups_list(request):
         # If page is out range (e.g. 9999), deliver
         # last page of results
         groups = paginator.page(paginator.num_pages)
-    return render(request, 'groups/groups_list.html', {'groups': groups})
+    return render(request, 'groups/groups_list.html', {'groups': groups, 'current_group': current_group})
 
 
 class GroupUpdateView(UpdateView):

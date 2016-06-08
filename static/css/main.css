@@ -44,3 +44,7 @@ td.day-box, th.day-header {
 #ajax-progress-indicator {
     display: none;
 }
+#user-toolbar {
+    margin-top: 30px;
+    text-align: right;
+}

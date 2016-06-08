@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.views.generic import UpdateView, DeleteView
 from studentsdb import settings
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 __author__ = 'berluskuni'
 from django.shortcuts import render
@@ -82,6 +84,7 @@ def students_list(request):
     return render(request, 'students/students_list.html', {'students': students})
 
 
+@login_required
 def students_add(request):
     # was form posted?
     if request.method == "POST":
@@ -171,6 +174,10 @@ class StudentUpdateView(UpdateView):
         else:
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(StudentUpdateView, self).dispatch(*args, **kwargs)
+
 
 class StudentDeleteView(DeleteView):
     model = Student
@@ -178,3 +185,7 @@ class StudentDeleteView(DeleteView):
 
     def get_success_url(self):
         return u'%s?status_message=Студента успішно видалено!' % reverse('home')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(StudentDeleteView, self).dispatch(*args, **kwargs)

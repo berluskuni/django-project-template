@@ -39,7 +39,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'registration',
+    'social.apps.django_app.default',
     'students',
+    'studentsdb',
     # 'contact_form',
 )
 
@@ -55,10 +58,22 @@ MIDDLEWARE_CLASSES = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
         "django.core.context_processors.request",
+        'social.apps.django_app.context_processors.backends',
+        "social.apps.django_app.context_processors.login_redirect",
         "studentsdb.context_processors.students_proc",
         "students.context_processors.group_processor",
+
     )
 )
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.open_id.OpenIdAuth',
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1830631860498005'
+SOCIAL_AUTH_FACEBOOK_SECRET = '5b2ad8fb372c5288d46eb36457bbfcb1'
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 PORTAL_URL = 'http://localhost:8000'
@@ -116,3 +131,56 @@ EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_HOST_USER = 'berluskuni@mail.ru'
 EMAIL_HOST_PASSWORD = 'ganzhik7897770'
 # end
+
+# Налоштовуємо логери для нашего сайта
+LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
+
+LOGGING = {
+    'version': 1,
+    'disables_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s: %(message)s'
+        },
+        "simple": {
+            'format': '%(levelname)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILE,
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['null'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'students.signals': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'students.views.contact_admin': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        }
+    }
+}
+
+REGISTRATION_OPEN = True
+
+LOGIN_URL = 'users:auth_login'
+LOGOUT_URL = 'users:auth_logout'

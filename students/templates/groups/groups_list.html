@@ -6,27 +6,7 @@
 
 {% block title %}Список Груп{% endblock title %}
 
-{% block logo %}
-      <div class="col-xs-8">
-                <h1>Сервіс Обліку Студентів</h1>
-            </div>
- {% endblock logo %}
-{% block group_select %}
-    <div class="col-xs-4" id="group-selector">
-                <strong>Група:</strong>
 
-                    <select>
-                        <option value="">Усі Студенти</option>
-                        {% for group in GROUPS %}
-                        <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>
-                        {{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}
-                        </option>
-                        {% endfor %}
-
-                    </select>
-
-            </div>
-{% endblock group_select %}
 {% block status_message %}
     {% if request.GET.status_message %}
                 <div class="alert alert-warning" role="alert">{{ request.GET.status_message }}</div>
