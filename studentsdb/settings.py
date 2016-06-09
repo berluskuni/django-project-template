@@ -47,6 +47,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'studentsdb.middleware.RequestTimeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,6 +75,8 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1830631860498005'
 SOCIAL_AUTH_FACEBOOK_SECRET = '5b2ad8fb372c5288d46eb36457bbfcb1'
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 PORTAL_URL = 'http://localhost:8000'
