@@ -66,7 +66,7 @@ def students_list(request):
     order_by = request.GET.get('order_by', '')
     if order_by in ('last_name', 'first_name', 'ticket'):
         students = students.order_by(order_by)
-        if request.GET.get('reverse', '') == 1:
+        if request.GET.get('reverse', '') == '1':
             students = students.reverse()
 
     # paginate students
